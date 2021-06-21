@@ -28,7 +28,7 @@ function containsSelectedLang(string, StartCharset, EndCharset) {
 }
 
 function addChecker(toCheckString){
-    const newregex = new RegExp('\\b(mark)\\b', 'gi')
+    const newregex = new RegExp('마크', 'gi')
     var checker = newregex.test(toCheckString)
     console.log(checker)
     return checker
@@ -41,11 +41,9 @@ function onlyShow(StartCharset, EndCharset) {
     CLFFooter.textContent = shownCommentNum + ' / ' + commentNum
     var commentString = commentList[i].querySelector('#content-text').innerText
     console.log(commentString)
-    console.log(addShow)
-    if (!addShow && addChecker(commentString)){
-        commentList[i].style = 'display: none'
-    }
-    else if (!containsSelectedLang(commentString, StartCharset, EndCharset)) {
+    console.log("should be false", addShow)
+
+    if (!containsSelectedLang(commentString, StartCharset, EndCharset)||!addShow && addChecker(commentString)) {
       commentList[i].style = 'display: none'
     } else {
       shownCommentNum++
@@ -85,7 +83,7 @@ async function main(loc) {
           var AllSelect = document.createElement('option')
           AllSelect.value = 'All'
           AllSelect.innerHTML = 'Any character'
-          addShow = result.addDisabled
+          addShow = !result.addDisabled
           CLFSelect.appendChild(AllSelect)
           if (!result.EnglishDisabled) {
             var EnglishSelect = document.createElement('option')
