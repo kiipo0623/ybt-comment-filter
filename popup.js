@@ -12,7 +12,7 @@ window.onload = () => {
     const ChineseDisabled = !document.getElementById('lang-chinese-checkbox').checked
     const debugModeEnabled = document.getElementById('debug-checkbox').checked
     const updateNotificationDisabled = !document.getElementById('update-noti-checkbox').checked
-    const addDisabled = !document.getElementById('add-checkbox').checked
+    const addDisabled = document.getElementById('add-checkbox').checked
     const setting = {
       EnglishDisabled: EnglishDisabled,
       KoreanDisabled: KoreanDisabled,
@@ -50,7 +50,7 @@ window.onload = () => {
         document.getElementById('lang-chinese-checkbox').checked = !result.ChineseDisabled
         document.getElementById('debug-checkbox').checked = result.debugModeEnabled
         document.getElementById('update-noti-checkbox').checked = !result.updateNotificationDisabled
-        document.getElementById('add-checkbox').checked = !result.addDisabled
+        document.getElementById('add-checkbox').checked = result.addDisabled
       }
     )
   }
