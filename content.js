@@ -27,6 +27,13 @@ function containsSelectedLang(string, StartCharset, EndCharset) {
   return false
 }
 
+function addChecker(toCheckString){
+    const newregex = new RegExp('\\b(mark)\\b', 'gi')
+    var checker = newregex.test(toCheckString)
+    console.log(checker)
+    return checker
+}
+
 function onlyShow(StartCharset, EndCharset) {
   var commentList = document.getElementsByTagName('ytd-comment-thread-renderer')
   for (var i = commentNum; i < commentList.length; i++) {
@@ -35,7 +42,10 @@ function onlyShow(StartCharset, EndCharset) {
     var commentString = commentList[i].querySelector('#content-text').innerText
     console.log(commentString)
     console.log(addShow)
-    if (!containsSelectedLang(commentString, StartCharset, EndCharset)) {
+    if (!addShow && addChecker(commentString)){
+        commentList[i].style = 'display: none'
+    }
+    else if (!containsSelectedLang(commentString, StartCharset, EndCharset)) {
       commentList[i].style = 'display: none'
     } else {
       shownCommentNum++
