@@ -9,6 +9,8 @@ var loc = window.location.href
 var commentNum = 0
 var shownCommentNum = 0
 var addShow = false;
+var wordShow = false;
+var userwords = [];
 
 var observer = new MutationObserver((mutationList) => {
   removeComments()
@@ -42,7 +44,7 @@ function onlyShow(StartCharset, EndCharset) {
     var commentString = commentList[i].querySelector('#content-text').innerText
     console.log(commentString)
     console.log("should be false", addShow)
-
+    console.log("userword", userwords);
     if (!containsSelectedLang(commentString, StartCharset, EndCharset)||!addShow && addChecker(commentString)) {
       commentList[i].style = 'display: none'
     } else {
@@ -78,12 +80,14 @@ async function main(loc) {
   if (loc.substring(0, 29) == 'https://www.youtube.com/watch') {
     if (!CLFShown) {
       chrome.storage.sync.get(
-        ['EnglishDisabled', 'KoreanDisabled', 'JapaneseDisabled', 'ChineseDisabled', 'addDisabled'],
+        ['EnglishDisabled', 'KoreanDisabled', 'JapaneseDisabled', 'ChineseDisabled', 'addDisabled','userWords', 'wordDisabled'],
         (result) => {
           var AllSelect = document.createElement('option')
           AllSelect.value = 'All'
           AllSelect.innerHTML = 'Any character'
           addShow = !result.addDisabled
+          wordShow = !result.wordDisabled
+          userwords = result.userWords
           CLFSelect.appendChild(AllSelect)
           if (!result.EnglishDisabled) {
             var EnglishSelect = document.createElement('option')
