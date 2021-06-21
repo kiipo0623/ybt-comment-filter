@@ -1,4 +1,13 @@
 window.onload = () => {
+    document.querySelector('#removeword').addEventListener('change', function () {
+        var user = document.querySelector('#removeword').value
+        chrome.storage.sync.set({
+            userWords: user
+        })
+        chrome.storage.sync.get('userWords', function (result) {
+            console.log(result)
+        })
+    })
     document.getElementById('save-button').addEventListener('click', function () {
       storeSetting()
     })
@@ -13,6 +22,7 @@ window.onload = () => {
     const debugModeEnabled = document.getElementById('debug-checkbox').checked
     const updateNotificationDisabled = !document.getElementById('update-noti-checkbox').checked
     const addDisabled = document.getElementById('add-checkbox').checked
+    const wordDisabled = document.getElementById('word-checkbox').checked
     const setting = {
       EnglishDisabled: EnglishDisabled,
       KoreanDisabled: KoreanDisabled,
@@ -21,6 +31,7 @@ window.onload = () => {
       debugModeEnabled: debugModeEnabled,
       updateNotificationDisabled: updateNotificationDisabled,
       addDisabled: addDisabled,
+      wordDisabled: wordDisabled,
     }
     console.log(setting)
     chrome.storage.sync.set(setting, () => {
@@ -42,6 +53,7 @@ window.onload = () => {
         'debugModeEnabled',
         'updateNotificationDisabled',
         'addDisabled',
+        'wordDisabled',
       ],
       (result) => {
         document.getElementById('lang-english-checkbox').checked = !result.EnglishDisabled
@@ -51,6 +63,7 @@ window.onload = () => {
         document.getElementById('debug-checkbox').checked = result.debugModeEnabled
         document.getElementById('update-noti-checkbox').checked = !result.updateNotificationDisabled
         document.getElementById('add-checkbox').checked = result.addDisabled
+        document.getElementById('word-checkbox').checked = result.wordDisabled
       }
     )
   }
