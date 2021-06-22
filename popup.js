@@ -19,8 +19,6 @@ window.onload = () => {
     const KoreanDisabled = !document.getElementById('lang-korean-checkbox').checked
     const JapaneseDisabled = !document.getElementById('lang-japanese-checkbox').checked
     const ChineseDisabled = !document.getElementById('lang-chinese-checkbox').checked
-    const debugModeEnabled = document.getElementById('debug-checkbox').checked
-    const updateNotificationDisabled = !document.getElementById('update-noti-checkbox').checked
     const addDisabled = document.getElementById('add-checkbox').checked
     const wordDisabled = document.getElementById('word-checkbox').checked
     const setting = {
@@ -28,8 +26,6 @@ window.onload = () => {
       KoreanDisabled: KoreanDisabled,
       JapaneseDisabled: JapaneseDisabled,
       ChineseDisabled: ChineseDisabled,
-      debugModeEnabled: debugModeEnabled,
-      updateNotificationDisabled: updateNotificationDisabled,
       addDisabled: addDisabled,
       wordDisabled: wordDisabled,
     }
@@ -50,8 +46,6 @@ window.onload = () => {
         'KoreanDisabled',
         'JapaneseDisabled',
         'ChineseDisabled',
-        'debugModeEnabled',
-        'updateNotificationDisabled',
         'addDisabled',
         'wordDisabled',
       ],
@@ -60,8 +54,6 @@ window.onload = () => {
         document.getElementById('lang-korean-checkbox').checked = !result.KoreanDisabled
         document.getElementById('lang-japanese-checkbox').checked = !result.JapaneseDisabled
         document.getElementById('lang-chinese-checkbox').checked = !result.ChineseDisabled
-        document.getElementById('debug-checkbox').checked = result.debugModeEnabled
-        document.getElementById('update-noti-checkbox').checked = !result.updateNotificationDisabled
         document.getElementById('add-checkbox').checked = result.addDisabled
         document.getElementById('word-checkbox').checked = result.wordDisabled
       }

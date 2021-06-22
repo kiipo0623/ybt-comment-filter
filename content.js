@@ -10,7 +10,7 @@ var commentNum = 0
 var shownCommentNum = 0
 var addShow = false;
 var wordShow = false;
-var userwords = [];
+var userwords = '';
 
 var observer = new MutationObserver((mutationList) => {
   removeComments()
@@ -32,10 +32,22 @@ function containsSelectedLang(string, StartCharset, EndCharset) {
 function addChecker(toCheckString){
     const newregex = new RegExp('마크', 'gi')
     var checker = newregex.test(toCheckString)
-    console.log(checker)
+    if (checker === true){
+        console.log("blocked")
+    }
     return checker
 }
 
+function wordChecker(toCheckString)
+{
+    const wordregex = new RegExp(userwords, 'gi')
+    var checker = wordregex.test(toCheckString)
+    if (checker === true){
+        console.log("blocked")
+    }
+    
+    return checker
+}
 function onlyShow(StartCharset, EndCharset) {
   var commentList = document.getElementsByTagName('ytd-comment-thread-renderer')
   for (var i = commentNum; i < commentList.length; i++) {
@@ -45,7 +57,8 @@ function onlyShow(StartCharset, EndCharset) {
     console.log(commentString)
     console.log("should be false", addShow)
     console.log("userword", userwords);
-    if (!containsSelectedLang(commentString, StartCharset, EndCharset)||!addShow && addChecker(commentString)) {
+    console.log("show be same as ", wordShow)
+    if (!containsSelectedLang(commentString, StartCharset, EndCharset)||!addShow && addChecker(commentString)||!wordShow && wordChecker(commentString)) {
       commentList[i].style = 'display: none'
     } else {
       shownCommentNum++

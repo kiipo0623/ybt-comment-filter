@@ -10,27 +10,21 @@
 </head>
 
 <body>
-    <h1>Youtube Chrome Extension</h1>
-    <p>Save and refresh to apply settings.</p>
-    <h3>Show Options</h3>
-    <input type="checkbox" id="lang-all-checkbox" disabled checked><label for="All">All</label><br>
-    <input type="checkbox" id="lang-english-checkbox"><label for="english">Alphabets</label><br>
-    <input type="checkbox" id="lang-korean-checkbox"><label for="korean">Korean characters (한글)</label><br>
-    <input type="checkbox" id="lang-japanese-checkbox"><label for="japanese">Japanese characters (仮名)</label><br>
-    <input type="checkbox" id="lang-chinese-checkbox"><label for="chinese">Chinese characters (漢字)</label><br>
-    <h3>Developer Mode</h3>
-    <p>Enabling this will make YouTube <strong>slower</strong>.</p>
-    <input type="checkbox" id="debug-checkbox"><label for="debug">Developer Mode</label><br>
-    <h3>Update Notifications</h3>
-    <input type="checkbox" id="update-noti-checkbox"><label for="debug">Receive Update Notifications</label><br>
-    <br>
-    <h3>do not want to see add</h3>
-    <p>Enabling this will make YouTube <strong>clean</strong>.</p>
-    <input type="checkbox" id="add-checkbox"><label for="add">dont see add</label><br>
-    <h3>do not want to see this word</h3>
-    <p>write this will make YouTube <strong>clean</strong>.</p>
-    <input type="checkbox" id="word-checkbox"><label for="add">dont see this word</label><br>
+    <h1>유튜브 댓글 필터</h1>
+    <p>설정 저장을 위해 확인 버튼을 누른 후 새로고침 해주세요.</p>
+    <h3>(1)외국어 설정</h3>
+    <input type="checkbox" id="lang-all-checkbox" disabled checked><label for="All">모든 언어 보기(for all)</label><br>
+    <input type="checkbox" id="lang-english-checkbox"><label for="english">영어(English)</label><br>
+    <input type="checkbox" id="lang-korean-checkbox"><label for="korean">한글(Korean)</label><br>
+    <input type="checkbox" id="lang-japanese-checkbox"><label for="japanese">일본어(仮名)</label><br>
+    <input type="checkbox" id="lang-chinese-checkbox"><label for="chinese">중국어(漢字)</label><br>
+    <h3>(2)광고 제거</h3>
+    <input type="checkbox" id="add-checkbox"><label for="add">광고 보지 않을래요!</label><br>
+    <h3>(3)지정 단어 제거</h3>
+    <h5>단어 사이에 |를 꼭 넣어주세요</h5>
+    <input type="checkbox" id="word-checkbox"><label for="add">이 단어가 들어간 댓글 보지 않을래요!</label><br>
     <textarea id="removeword" rows="2"></textarea>
+    <br><br>
     <button id="save-button">Save</button>
 
 </body>
