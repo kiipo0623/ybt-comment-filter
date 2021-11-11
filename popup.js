@@ -6,6 +6,7 @@ window.onload = () => {
         })
         chrome.storage.sync.get('userWords', function (result) {
             console.log(result)
+            document.querySelector('#storagedword').innerText = result.userWords
         })
     })
     document.getElementById('save-button').addEventListener('click', function () {

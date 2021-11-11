@@ -26,6 +26,7 @@ function containsSelectedLang(string, StartCharset, EndCharset) {
       }
     }
   }
+  console.log("blocked by language")
   return false
 }
 
@@ -33,7 +34,7 @@ function addChecker(toCheckString){
     const newregex = new RegExp('마크', 'gi')
     var checker = newregex.test(toCheckString)
     if (checker === true){
-        console.log("blocked")
+        console.log("blocked by abuse and add")
     }
     return checker
 }
@@ -43,7 +44,7 @@ function wordChecker(toCheckString)
     const wordregex = new RegExp(userwords, 'gi')
     var checker = wordregex.test(toCheckString)
     if (checker === true){
-        console.log("blocked")
+        console.log("blocked by word")
     }
     
     return checker
@@ -55,9 +56,9 @@ function onlyShow(StartCharset, EndCharset) {
     CLFFooter.textContent = shownCommentNum + ' / ' + commentNum
     var commentString = commentList[i].querySelector('#content-text').innerText
     console.log(commentString)
-    console.log("should be false", addShow)
-    console.log("userword", userwords);
-    console.log("show be same as ", wordShow)
+    // console.log("should be false", addShow)
+    // console.log("userword", userwords);
+    // console.log("show be same as ", wordShow)
     if (!containsSelectedLang(commentString, StartCharset, EndCharset)||!addShow && addChecker(commentString)||!wordShow && wordChecker(commentString)) {
       commentList[i].style = 'display: none'
     } else {
@@ -77,7 +78,7 @@ function showAllComments() {
 
 function removeComments() {
   if (CLFSelect.value == 'All') {
-    CLFFooter.textContent = 'All comments'
+    CLFFooter.textContent = '마지막 댓글입니다.'
   } else if (CLFSelect.value == 'English') {
     onlyShow([65, 97], [90, 122])
   } else if (CLFSelect.value == 'Korean') {
@@ -97,7 +98,7 @@ async function main(loc) {
         (result) => {
           var AllSelect = document.createElement('option')
           AllSelect.value = 'All'
-          AllSelect.innerHTML = 'Any character'
+          AllSelect.innerHTML = '모든 언어'
           addShow = !result.addDisabled
           wordShow = !result.wordDisabled
           userwords = result.userWords
@@ -105,25 +106,25 @@ async function main(loc) {
           if (!result.EnglishDisabled) {
             var EnglishSelect = document.createElement('option')
             EnglishSelect.value = 'English'
-            EnglishSelect.innerHTML = 'Alphabets'
+            EnglishSelect.innerHTML = '영어(English)'
             CLFSelect.appendChild(EnglishSelect)
           }
           if (!result.KoreanDisabled) {
             var KoreanSelect = document.createElement('option')
             KoreanSelect.value = 'Korean'
-            KoreanSelect.innerHTML = 'Korean characters (한글)'
+            KoreanSelect.innerHTML = '한글(Korean)'
             CLFSelect.appendChild(KoreanSelect)
           }
           if (!result.JapaneseDisabled) {
             var JapaneseSelect = document.createElement('option')
             JapaneseSelect.value = 'Japanese'
-            JapaneseSelect.innerHTML = 'Japanese characters (仮名)'
+            JapaneseSelect.innerHTML = '일어(Japanese)'
             CLFSelect.appendChild(JapaneseSelect)
           }
           if (!result.ChineseDisabled) {
             var ChineseSelect = document.createElement('option')
             ChineseSelect.value = 'Chinese'
-            ChineseSelect.innerHTML = 'Chinese characters (漢字)'
+            ChineseSelect.innerHTML = '중어(Chinese)'
             CLFSelect.appendChild(ChineseSelect)
           }
         }
@@ -131,8 +132,8 @@ async function main(loc) {
       CLFHeader.classList.add('select-text')
       CLFHeader.classList.add('CLFHeader')
       CLFFooter.classList.add('CLFFooter')
-      CLFHeader.textContent = 'Comments must include:'
-      CLFFooter.textContent = 'All comments'
+      CLFHeader.textContent = '이 언어로 된 댓글 볼래요!'
+      CLFFooter.textContent = '마지막 댓글입니다.'
       ;(function insertEl() {
         var meta = document.evaluate(
           '/html/body/ytd-app/div/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[7]',
@@ -164,7 +165,7 @@ async function main(loc) {
       })()
       CLFSelect.addEventListener('change', function () {
         if (CLFSelect.value == 'All') {
-          CLFFooter.textContent = 'All comments'
+          CLFFooter.textContent = '마지막 댓글입니다.'
           observer.disconnect()
           showAllComments()
         } else {
@@ -195,7 +196,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === 'page moved!') {
     loc = request.url
     main(loc)
-    CLFFooter.textContent = 'All comments'
+    CLFFooter.textContent = '마지막 댓글입니다.'
     document.getElementById('CLFSelect').selectedIndex = 0
     showAllComments()
     observer.disconnect()
